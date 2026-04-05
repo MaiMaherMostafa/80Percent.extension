@@ -1,0 +1,269 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Foundation Dimensioning Inputs"
+    Height="680"
+    Width="640"
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize"
+    Background="#FFFFFFFF">
+
+    <!-- ============================= -->
+    <!--      LIGHT PURPLE THEME      -->
+    <!-- ============================= -->
+    <Window.Resources>
+
+        <!-- COLORS -->
+        <SolidColorBrush x:Key="BgLight"       Color="#FFF3F3F3"/>
+        <SolidColorBrush x:Key="PanelLight"    Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="BorderLight"   Color="#FFD0D0D0"/>
+        <SolidColorBrush x:Key="TextDark"      Color="#FF202020"/>
+
+        <!-- GRADIENT PURPLE -->
+        <LinearGradientBrush x:Key="PurpleGrad" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#d02ddb" Offset="0"/>
+            <GradientStop Color="#b405c7" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Hover & Pressed -->
+        <SolidColorBrush x:Key="PurpleHover"  Color="#F6A1FF"/>
+        <SolidColorBrush x:Key="PurplePress"  Color="#C430D6"/>
+
+        <!-- TEXT -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+
+        <!-- BUTTON -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PurpleGrad}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PurplePress}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="4"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PurpleHover}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PurplePress}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- FIXED GROUPBOX (NO BROKEN HEADER) -->
+        <Style TargetType="GroupBox">
+            <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PurplePress}"/>
+            <Setter Property="Background" Value="{StaticResource PanelLight}"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid>
+                            <Border 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Margin="0,10,0,0"/>
+
+                            <!-- Header ABOVE border -->
+                            <Border Background="{StaticResource PanelLight}"
+                                    Padding="4,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Margin="10,0,0,0">
+                                <ContentPresenter ContentSource="Header"/>
+                            </Border>
+
+                            <!-- Content -->
+                            <ContentPresenter Margin="10,20,10,10"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- INPUTS -->
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+            <Setter Property="Background" Value="#FFFFFFFF"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{StaticResource TextDark}"/>
+            <Setter Property="Background" Value="#FFFFFFFF"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="FrameworkElement" x:Key="DimWhenDisabled">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.45"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <!-- ============================= -->
+    <!--            LAYOUT            -->
+    <!-- ============================= -->
+    <!-- Overall page grid: content + footer buttons -->
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Make label columns in each group share the same width -->
+        <StackPanel Grid.IsSharedSizeScope="True">
+
+            <TextBlock Text="This is test version so save your model before implementation"
+                       FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+            <TextBlock Text="Temporary hide what is not needed to dimension (For example: PC Foundation)"
+                       FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+            <!-- Checks group -->
+            <GroupBox Header="Checks" Margin="0,12,0,0">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Left column -->
+                    <CheckBox x:Name="CheckGridDims" Grid.Row="0" Grid.Column="0"
+                              Content="Create Grid Dimensions" IsChecked="True"/>
+                    <CheckBox x:Name="CheckFaceFace" Grid.Row="1" Grid.Column="0"
+                              Content="Create Face-to-Face Dimensions" IsChecked="True"/>
+                    <CheckBox x:Name="CheckFaceGrid" Grid.Row="2" Grid.Column="0"
+                              Content="Create Face-to-Grid Dimensions" IsChecked="True"/>
+                    <CheckBox x:Name="CheckAllFaceGrid" Grid.Row="3" Grid.Column="0"
+                              Content="Face-to-Grid Dimensions (All Faces)" IsChecked="False"/>
+
+                    <!-- Right column -->
+                    <CheckBox x:Name="CheckApplyVT" Grid.Row="0" Grid.Column="1"
+                              Content="Apply View Template" IsChecked="False"/>
+                    <CheckBox x:Name="CheckTagFoundations" Grid.Row="1" Grid.Column="1"
+                              Content="Create Foundation Tags" IsChecked="True"/>
+                    <CheckBox x:Name="CheckTagFraming" Grid.Row="2" Grid.Column="1"
+                              Content="Create Structural Framing Tags" IsChecked="True"/>
+                </Grid>
+            </GroupBox>
+
+            <Separator Margin="0,12,0,0"/>
+
+            <!-- Types group (labels left, dropdowns right) -->
+            <GroupBox Header="Types" Margin="0,12,0,0">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Labels"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Dimension Type:" Grid.Row="0" Grid.Column="0" Margin="0,6,12,6" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="DimTypeCombo" Grid.Row="0" Grid.Column="1" Margin="0,4" IsEditable="False" MinWidth="260" Style="{StaticResource DimWhenDisabled}"/>
+
+                    <TextBlock Text="Grid Dimension Type:" Grid.Row="1" Grid.Column="0" Margin="0,6,12,6" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="GridDimTypeCombo" Grid.Row="1" Grid.Column="1" Margin="0,4" IsEditable="False" MinWidth="260" IsEnabled="{Binding IsChecked, ElementName=CheckGridDims}" Style="{StaticResource DimWhenDisabled}"/>
+
+                    <TextBlock Text="Foundation Tag Type:" Grid.Row="2" Grid.Column="0" Margin="0,6,12,6" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="TagTypeCombo" Grid.Row="2" Grid.Column="1" Margin="0,4" IsEditable="False" MinWidth="260" IsEnabled="{Binding IsChecked, ElementName=CheckTagFoundations}" Style="{StaticResource DimWhenDisabled}"/>
+
+                    <TextBlock Text="Structural Framing Tag Type:" Grid.Row="3" Grid.Column="0" Margin="0,6,12,6" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="FramingTagTypeCombo" Grid.Row="3" Grid.Column="1" Margin="0,4" IsEditable="False" MinWidth="260" IsEnabled="{Binding IsChecked, ElementName=CheckTagFraming}" Style="{StaticResource DimWhenDisabled}"/>
+
+                    <TextBlock Text="View Template (Plans only):" Grid.Row="4" Grid.Column="0" Margin="0,6,12,6" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="ViewTemplateCombo" Grid.Row="4" Grid.Column="1" Margin="0,4" IsEditable="False" MinWidth="260" IsEnabled="{Binding IsChecked, ElementName=CheckApplyVT}" Style="{StaticResource DimWhenDisabled}"/>
+                </Grid>
+            </GroupBox>
+
+            <Separator Margin="0,12,0,0"/>
+
+            <!-- Offsets group (now 2 rows × 2 columns of fields) -->
+            <GroupBox Header="Offsets" Margin="0,12,0,0">
+                <Grid Margin="10">
+                    <!-- Two label/input pairs per row -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Labels"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="24"/>  <!-- spacer between left and right pairs -->
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Labels"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Row 1 (top) -->
+                    <TextBlock Text="Dimension Between Grids Offset (mm):"
+                               Grid.Row="0" Grid.Column="0" Margin="0,6,12,6" VerticalAlignment="Center" ToolTip="The distance between the grid end point and the dimension baseline."/>
+                    <TextBox x:Name="GXOuterBox" Grid.Row="0" Grid.Column="1" Margin="0,4" IsEnabled="{Binding IsChecked, ElementName=CheckGridDims}"/>
+
+                    <TextBlock Text="First to last Grid Dimension Offset (mm):"
+                               Grid.Row="0" Grid.Column="3" Margin="0,6,12,6" VerticalAlignment="Center" ToolTip="The distance between the grid end point and the dimension baseline."/>
+                    <TextBox x:Name="GXInnerBox" Grid.Row="0" Grid.Column="4" Margin="0,4" IsEnabled="{Binding IsChecked, ElementName=CheckGridDims}"/>
+
+                    <!-- Row 2 (bottom) -->
+                    <TextBlock Text="Foundation dimension offset (mm):"
+                               Grid.Row="1" Grid.Column="0" Margin="0,6,12,6" VerticalAlignment="Center" ToolTip="The distance between the column face and the dimension baseline."/>
+                    <TextBox x:Name="XInnerBox" Grid.Row="1" Grid.Column="1" Margin="0,4"/>
+
+                    <TextBlock Text="Tag Corner Offset (mm):"
+                               Grid.Row="1" Grid.Column="3" Margin="0,6,12,6" VerticalAlignment="Center" ToolTip="The distance between the column corner and the tag."/>
+                    <TextBox x:Name="TagCornerBox" Grid.Row="1" Grid.Column="4" Margin="0,4" IsEnabled="{Binding IsChecked, ElementName=CheckTagFoundations}"/>
+                </Grid>
+            </GroupBox>
+
+        </StackPanel>
+
+        <!-- Footer buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button x:Name="OkButton" Width="90" Margin="6" Content="Ok"/>
+            <Button x:Name="CancelButton" Width="90" Margin="6" Content="Cancel"/>
+        </StackPanel>
+    </Grid>
+</Window>
