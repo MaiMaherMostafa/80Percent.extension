@@ -1,0 +1,8 @@
+title: Foundation
+tooltip: Automate the annotation needed for the foundation view (Isolated footing and grids dimensions, tags and view template).
+author: Mai Maher
+engine:
+  clean: false
+  bin: python
+script: script.py
+icon: icon.png
