@@ -1,0 +1,10 @@
+title: "Duplicate Views\n(Dependent)"
+tooltip: Select Floor, Ceiling, and Structural Plan Views and duplicate them as dependent views with a custom suffix.
+author: Mai Maher
+help_url: https://www.revitapidocs.com/
+engine:
+  type: python
+  version: 3
+
+min_revit_version: 2020
+max_revit_version: 2025

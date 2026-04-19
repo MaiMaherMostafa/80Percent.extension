@@ -1,0 +1,10 @@
+title: Bulk Create
+tooltip: Bulk Create Structural Plan Views and Sheets according to the excel file.
+author: Mai Maher
+help_url: https://www.revitapidocs.com/
+engine:
+  type: python
+  version: 3
+
+min_revit_version: 2020
+max_revit_version: 2025
